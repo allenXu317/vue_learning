@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="div1">
+  {{ message }}
+</div>
+
+<br/>
+
+<div id='div2'>
+	<span v-bind:title="message">
+		鼠标悬停于此
+	</span>
+</div>
+
+<br/>
+
+<div id='div3'>
+	<p v-if="seen">now you can see me!</p>
+</div>
+
+<br/>
+
+<div id='div4'>
+	<ol>
+		<li v-for='todo in todos'>
+			{{todo.text}}
+		</li>
+	</ol>
+</div>
+
+<br/>
+
+<div id='div5'>
+	<p>{{message}}</p>
+	<button v-on:click="myFunc">button</button>
+</div>
+
+<br/>
+
+<div id='div6'>
+	<p>{{message}}</p>
+	<input v-model="message">
+</div>
+
+<br/>
+
+<!--创建一个todo-item的组件实例-->
+<div id='div7'>
+	<ol>
+		<!--
+		v-bind:key  ---  相当于给vue一个提示，可以使它跟踪每个节点的身份。
+		-->
+		<todo-item
+			v-for = "item in groceryList"
+			v-bind:todo = "item"
+			v-bind:key = "item.id"
+		></todo-item>
+	</ol>
+</div>
+
+
+
+<script>
+	//第一个vue页面
+	var app = new Vue({
+  		el: '#div1',
+  		data: {
+    		message: 'Hello Vue!'
+  		}
+	})
+
+	//绑定元素特性：
+	var app2 = new Vue({
+		el:'#div2',
+		data:{
+			message:'把鼠标放在这'
+		}
+	})
+
+	//if判断：
+	var app3 = new Vue({
+		el:'#div3',
+		data:{
+			seen:true
+			// seen:false
+		}
+	})
+
+	//for
+	var app4 = new Vue({
+		el:'#div4',
+		data:{
+			todos:[
+				{text:"123"},
+				{text:"456"},
+				{text:"789"}
+			]
+		}
+	})
+
+	//v-on:----事件监听器
+	var app5 = new Vue({
+		el:'#div5',
+		data:{//变量值
+			message:'hello Vue.js!'
+		},
+		methods:{//方法
+			myFunc:function(){
+				this.message = this.message.split('').reverse().join('')
+			}
+		}
+
+	})
+
+	//v-model---输入表单与应用状态之间双向绑定；
+	var app6 = new Vue({
+		el:'#div6',
+		data:{
+			message:'hello!'
+		}
+	})
+
+	//Vue组件的实践：
+	//1.在vue中注册组件:
+	Vue.component('todo-item',{
+		props:['todo'],
+		template:'<li>{{todo.text}}</li>'
+		//template中写html格式的字符串;
+	})
+	//2.
+	var app7 = new Vue({
+		el:'#div7',
+		data:{
+			groceryList:[
+				{id:0,text:'蔬菜'},
+				{id:1,text:'奶酪'},
+				{id:2,text:'随便'}
+			]
+		}
+	})
+
+	
+
+</script>
+</body>
+</html>

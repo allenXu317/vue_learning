@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Template Syntax</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<style type="text/css">
+	.class1{
+		background: #444;
+		color: #eee;
+	}
+</style>
+<body>
+	<!--文本-->
+	<div id='div1'>
+		<p>{{message}}</p>
+	</div>
+	<!--html文本-->
+	<div id='div2'>
+		<div v-html="message"></div>
+	</div>
+	<!--属性-->
+	<div id='div3'>
+		<label for="r1">修改颜色</label><input type="checkbox" v-model="use" id="r1">
+		<br><br>
+		<div v-bind:class="{'class1':use}">
+			v-bind:class 指令；
+		</div>
+	</div>
+	<!--支持js语句-->
+	<div id='div4'>
+		{{5+5}}<br>
+		{{ok?'yes':'no'}}<br>
+		{{message.split('').reverse().join('')}}
+	</div>
+	<!--v-on-->
+	<div id='div5'>
+		<p>{{message}}</p>
+		<button v-on:click="myFunc">
+			button1
+		</button>
+	</div>
+
+
+
+
+<script>
+
+	var app1 = new Vue({
+		el:'#div1',
+		data:{
+			message:'hello hellllllo!'
+		}
+	})
+
+	var app2 = new Vue({
+		el:'#div2',
+		data:{
+			message:'<p>tttttttt</p>'
+		}
+	})
+
+	var app3 = new Vue({
+		el:'#div3',
+		data:{
+			use:false
+		}
+	})
+
+	var app4 = new Vue({
+		el:'#div4',
+		data:{
+			ok:true,
+			message:'123',
+			id:1
+		}
+	})
+
+	var app5 = new Vue({
+		el:'#div5',
+		data:{
+			message:'456456'
+		},
+		methods:{
+			myFunc:function(){
+				this.message = this.message.split('').reverse().join('')
+			}
+		}
+	})
+</script>
+</body>
+</html>
